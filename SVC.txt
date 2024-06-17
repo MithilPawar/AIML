@@ -1,0 +1,12 @@
+import pandas as pd
+import numpy as np
+
+url = 'http://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data'
+iris = pd.read_csv(url, names=['sepal_length', 'sepal_width', 'petal_length', 'petal_width', 'class'])
+from sklearn.model_selection import train_test_split
+X_train, X_test, y_train, y_test = train_test_split(iris.drop(['class'],axis='columns'),iris[['class']],train_size=0.8)
+
+len(X_train)
+from sklearn.svm import SVC
+model = SVC()
+model.fit(X_train, y_train)

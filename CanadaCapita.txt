@@ -1,0 +1,27 @@
+import pandas as pd
+
+# Load the dataset from the provided URL
+url = "https://raw.githubusercontent.com/codebasics/py/master/ML/1_linear_reg/Exercise/canada_per_capita_income.csv"
+df = pd.read_csv(url)
+
+# Display the first few rows of the dataset to understand its structure
+print(df.head())
+
+# Separate into independent variable X and dependent variable y
+X = df[['year']]  # X should be a DataFrame or 2D array
+y = df['per capita income (US$)']  # y should be a Series or 1D array
+
+from sklearn.linear_model import LinearRegression
+
+# Create a linear regression object
+model = LinearRegression()
+
+# Fit the model using X and y
+model.fit(X, y)
+
+# Predict per capita income for year 2020
+year_2020 = [[2020]]  # Note the double square brackets since predict method expects 2D array
+predicted_income_2020 = model.predict(year_2020)
+
+# Print the predicted per capita income for year 2020
+print(f"The predicted per capita income for Canadian citizens in the year 2020 is ${predicted_income_2020[0]:.2f}")

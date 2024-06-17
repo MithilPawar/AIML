@@ -1,0 +1,17 @@
+import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.ensemble import GradientBoostingClassifier
+from sklearn.metrics import accuracy_score
+url="https://raw.githubusercontent.com/stedy/Machine-Learning-with-R-datasets/master/mushrooms.csv"
+mushrooms_df = pd.read_csv(url)
+mushrooms_df = pd.get_dummies(mushrooms_df)
+X = mushrooms_df.drop(columns=['type_e', 'type_p'])
+y = mushrooms_df['type_p']
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+boosting_model=GradientBoostingClassifier(n_estimators=100,learning_rate=0.1,
+random_state=42)
+boosting_model.fit(X_train, y_train)
+y_pred = boosting_model.predict(X_test)
+accuracy = accuracy_score(y_test, y_pred)
+print("The model achieved an accuracy of {:.2f}% on the testing dataset.".format(accuracy *
+100))

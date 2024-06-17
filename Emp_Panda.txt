@@ -1,0 +1,17 @@
+'''Create Pandas Dataframe to enter employee database which includes Sr No,
+Name, Mobile No, City'''
+import pandas as pd
+
+# Create a list of dictionaries with the employee data
+employee_data = [
+    {"Sr No": 1, "Name": "John Doe", "Mobile No": "1234567890", "City": "New York"},
+    {"Sr No": 2, "Name": "Jane Smith", "Mobile No": "0987654321", "City": "Los Angeles"},
+    {"Sr No": 3, "Name": "Emily Johnson", "Mobile No": "5556667777", "City": "Chicago"},
+    {"Sr No": 4, "Name": "Michael Brown", "Mobile No": "4445556666", "City": "Houston"},
+]
+
+# Convert the list of dictionaries into a DataFrame
+df = pd.DataFrame(employee_data)
+
+# Display the DataFrame
+print(df)

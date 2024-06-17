@@ -1,0 +1,53 @@
+from google.colab import files
+
+# Upload your file (use the file picker dialog)
+uploaded = files.upload()
+
+import pandas as pd
+
+# Example path if uploaded directly
+file_path = 'HR_comma_sep.csv'  # Adjust the file name as per your actual file
+
+# Load the dataset
+df = pd.read_csv(file_path)
+
+print(df.head())   # Check the first few rows
+print(df.info())   # Summary of columns and data types
+print(df.describe())
+
+from sklearn.model_selection import train_test_split
+
+# Example preprocessing (adjust as per your data exploration findings)
+X = df[['satisfaction_level', 'last_evaluation', 'number_project', 'average_montly_hours',
+        'time_spend_company', 'Work_accident', 'promotion_last_5years', 'Department', 'salary']]
+y = df['left']
+
+X = pd.get_dummies(X, columns=['Department', 'salary'], drop_first=True)  # Convert categorical to dummy variables
+
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+from sklearn.linear_model import LogisticRegression
+
+# Initialize the model
+model = LogisticRegression(max_iter=1000)
+
+# Fit the model on training data
+model.fit(X_train, y_train)
+
+from sklearn.metrics import accuracy_score, confusion_matrix, classification_report
+
+# Predict on test data
+y_pred = model.predict(X_test)
+
+# Calculate accuracy
+accuracy = accuracy_score(y_test, y_pred)
+print(f'Accuracy of the logistic regression model: {accuracy:.2f}')
+
+# Confusion matrix
+cm = confusion_matrix(y_test, y_pred)
+print('Confusion Matrix:')
+print(cm)
+
+# Classification report
+print('Classification Report:')
+print(classification_report(y_test, y_pred))
